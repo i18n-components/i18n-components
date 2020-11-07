@@ -24,6 +24,7 @@
     "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
     "classnames": "^2.2.6",
+    "commitizen": "^4.2.2",
     "eslint": "^7.12.1",
     "file-loader": "^6.2.0",
     "husky": "^4.3.0",
@@ -57,7 +58,8 @@
     "build:declarations": "lerna exec --parallel -- tsc -p ./tsconfig.build.json",
     "prerelease": "yarn build",
     "release": "lerna publish",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "test": "npx jest"
   },
   "browserslist": {
     "production": [
