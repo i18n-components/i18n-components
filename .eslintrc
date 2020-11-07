@@ -1,0 +1,27 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "rules": {
+    "require-jsdoc": [
+      "warn",
+      {
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": false,
+          "ArrowFunctionExpression": true,
+          "FunctionExpression": true
+        }
+      }
+    ],
+    "max-lines-per-function": [
+      "error",
+      { "max": 50, "skipComments": true, "skipBlankLines": true }
+    ],
+    "max-lines": [
+      "error",
+      { "max": 150, "skipComments": true, "skipBlankLines": true }
+    ]
+  }
+}

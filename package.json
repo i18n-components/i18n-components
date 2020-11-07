@@ -1,0 +1,75 @@
+{
+  "name": "i18n-components",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
+    "@babel/preset-typescript": "^7.12.1",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/config-lerna-scopes": "^11.0.0",
+    "@docusaurus/core": "2.0.0-alpha.66",
+    "@docusaurus/preset-bootstrap": "2.0.0-alpha.66",
+    "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.66",
+    "@docusaurus/theme-search-algolia": "^2.0.0-alpha.66",
+    "@mdx-js/react": "^1.5.8",
+    "@types/glob": "^7.1.3",
+    "@types/jest": "^26.0.15",
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.0",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.1.0",
+    "chai": "^4.2.0",
+    "classnames": "^2.2.6",
+    "eslint": "^7.12.1",
+    "file-loader": "^6.2.0",
+    "jest": "^26.6.3",
+    "jest-config": "^26.6.3",
+    "jsdom": "^16.4.0",
+    "lerna": "^3.22.1",
+    "mocha": "^8.2.0",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^15.1.0",
+    "puppeteer": "^5.4.1",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.4.3",
+    "ts-loader": "^8.0.7",
+    "typescript": "^4.0.5",
+    "webpack": "^5.3.2"
+  },
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "doc:start": "docusaurus start",
+    "doc:build": "docusaurus build",
+    "doc:swizzle": "docusaurus swizzle",
+    "doc:deploy": "docusaurus deploy",
+    "doc:serve": "docusaurus serve"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "workspaces": {
+    "packages": [
+      "packages/**/*"
+    ]
+  },
+  "version": "0.0.0",
+  "description": "Internationalize Number Input",
+  "main": "index.js",
+  "author": "Apurva Ojas <apurvaojas10@gmail.com>",
+  "license": "MIT"
+}

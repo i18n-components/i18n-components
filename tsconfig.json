@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "sourceMap": true,
+    "module": "UMD",
+    "moduleResolution": "Node",
+    "declaration": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["packages/**/*.ts"],
+  "exclude": ["node_modules", "**/__tests__/**/*.ts"]
+}
