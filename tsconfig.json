@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "esnext",
     "sourceMap": true,
     "module": "UMD",
     "moduleResolution": "Node",
@@ -8,7 +8,13 @@
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "@i18n-components/*": ["packages/*/src"],
+      "*": ["node_modules", "packages"]
+    }
   },
   "include": ["packages/**/*.ts"],
   "exclude": ["node_modules", "**/__tests__/**/*.ts"]
