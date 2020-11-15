@@ -88,7 +88,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pre:commit:check",
+      "pre-commit": "npm run pre:commit:check",
       "commit-msg": "[[ -n $HUSKY_BYPASS ]] || commitlint -E HUSKY_GIT_PARAMS"
     }
   },
