@@ -66,7 +66,8 @@
     "lint:ts": "eslint packages/**/*.ts",
     "lint": "run-p -c lint:*",
     "tsc": "tsc",
-    "test": "npx jest"
+    "test": "npx jest",
+    "pre:commit:check": "npm run lint && npm test"
   },
   "browserslist": {
     "production": [
@@ -87,7 +88,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test",
+      "pre-commit": "pre:commit:check",
       "commit-msg": "[[ -n $HUSKY_BYPASS ]] || commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -102,7 +103,7 @@
     }
   },
   "version": "0.0.0",
-  "description": "Internationalize Number Input",
+  "description": "Internationalize Components",
   "main": "index.js",
   "author": "Apurva Ojas <apurvaojas10@gmail.com>",
   "license": "MIT"
