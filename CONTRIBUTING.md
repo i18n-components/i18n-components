@@ -31,6 +31,15 @@ I18n-Components uses [GitHub](https://github.com/i18n-components/i18n-components
 
 When a change made on GitHub is approved, it will be checked by our continuous integration system, GitHub Actions.
 
+### Branch Organization
+
+I18n Components has two primary branches: `main` and `gh-pages`.
+
+`main` is where our code lives and development takes place. We will do our best to keep `main` in good shape, with tests passing at all times. We will also do our best not to publish updated `npm` packages that will break sites. We will do our best to communicate these changes and version appropriately so you can lock into a specific I18n Components version if need be.
+
+`gh-pages` contains the [I18n Components documentation](https://i18n-components.github.io). This branch is pushed to by CI and not generally managed manually.
+
+
 ### Reporting new issues
 
 When [opening a new issue](https://github.com/i18n-components/i18n-components/issues/new/choose), always make sure to fill out the issue template. **This step is very important!** Not doing so may result in your issue not managed in a timely fashion. Don't take this personally if this happens, and feel free to open a new issue once you've gathered all the information required by the template.
@@ -44,7 +53,7 @@ We use [GitHub Issues](https://github.com/i18n-components/i18n-components/issues
 
 If you have questions about using I18n Components, contact the I18n Components Twitter account at [@ComponentsI18n](https://twitter.com/ComponentsI18n), and we will do our best to answer your questions.
 
-You can also file issues as [feature requests or enhancements](https://github.com/i18n-components/i18n-components/labels/feature). If you see anything you'd like to be implemented, create an issue with [feature template](https://raw.githubusercontent.com/i18n-components/i18n-components/main/.github/ISSUE_TEMPLATE/feature.md/)
+You can also file issues as [feature requests or enhancements](https://github.com/i18n-components/i18n-components/labels/feature). If you see anything you'd like to be implemented, create an issue with [feature template](https://raw.githubusercontent.com/i18n-components/i18n-components/main/.github/ISSUE_TEMPLATE/feature.md)
 
 
 ## Working on I18n Components code
@@ -92,6 +101,8 @@ Use lower case not title case!
 
 [Prettier](https://prettier.io/) will catch most styling issues that may exist in your code. You can check the status of your code styling by simply running `npm run prettier`.
 
+We also strictly follow the guide lines like `lines-per-page` as `150` and `lines-per-function` and `50`. To make the code more redable and modular.
+
 However, there are still some styles that Prettier cannot pick up.
 
 #### General
@@ -117,7 +128,7 @@ We have a list of [beginner friendly issues](https://github.com/i18n-components/
 
 ### Proposing a change
 
-If you would like to request a new feature or enhancement but are not yet thinking about opening a pull request, you can also file an issue with [feature template](https://github.com/i18n-components/i18n-components/issues/new?template=feature.md/).
+If you would like to request a new feature or enhancement but are not yet thinking about opening a pull request, you can also file an issue with [feature template](https://github.com/i18n-components/i18n-components/issues/new?template=feature.md).
 
 If you intend to change the public API, or make any non-trivial changes to the implementation, we recommend filing an issue with [proposal template](https://github.com/i18n-components/i18n-components/issues/new?template=proposal.md) and including `[Proposal]` in the title. This lets us reach an agreement on your proposal before you put significant effort into it. These types of issues should be rare.
 
@@ -131,7 +142,7 @@ Please make sure the following is done when submitting a pull request:
 
 1. Fork [the repository](https://github.com/i18n-components/i18n-components) and create your branch from `main`.
 1. Add the copyright notice to the top of any code new files you've added.
-1. Describe your [test plan](#test-plan) in your pull request description. Make sure to [test your changes](https://github.com/i18n-components/i18n-components/blob/main/admin/testing-changes-on-I18n Components-itself.md/)!
+1. Describe your [test plan](#test-plan) in your pull request description. Make sure to test your changes using `yarn test` and fulfill minimum required code coverage.!
 1. Make sure your code lints (`yarn prettier && yarn lint`).
 1. Make sure your Jest tests pass (`yarn test`).
 
