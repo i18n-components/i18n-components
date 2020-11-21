@@ -18,8 +18,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components' 
-        run: yarn
-        run: yarn build
+      - run: yarn
+      - run: yarn build
 
   test:
     needs: build
