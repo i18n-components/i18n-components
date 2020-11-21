@@ -14,8 +14,9 @@ jobs:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
         # Defaults to the user or organization that owns the workflow file
-        scope: '@i18n-components' 
-    - run: yarn
+        scope: '@i18n-components'
+    - name: Install dependencies and build     
+      run: yarn
     - run: yarn publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
