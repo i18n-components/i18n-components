@@ -1,0 +1,44 @@
+name: Check pull request
+
+on:
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup node environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org/'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@i18n-components' 
+      - run: yarn
+      - run: yarn build
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup node environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org/'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@i18n-components' 
+      - run: yarn
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.4
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CODE_CLIMATE_REPORTER_ID}}
+        with:
+          coverageCommand: yarn test
+          coverageLocations: |
+            ${{github.workspace}}/coverage/lcov.info:lcov

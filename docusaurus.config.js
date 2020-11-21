@@ -9,7 +9,7 @@ module.exports = {
   projectName: 'docusaurus', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      // title: 'My Site',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
@@ -19,9 +19,9 @@ module.exports = {
           to: 'docs/',
           activeBasePath: 'docs',
           label: 'Docs',
-          position: 'left',
+          position: 'right',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
+        // {to: 'blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
@@ -52,10 +52,10 @@ module.exports = {
         {
           title: 'More',
           items: [
-            {
-              label: 'Blog',
-              to: 'blog/',
-            },
+            // {
+            //   label: 'Blog',
+            //   to: 'blog/',
+            // },
             {
               label: 'GitHub',
               href: 'https://github.com/facebook/docusaurus',
@@ -69,7 +69,7 @@ module.exports = {
   themes: ['@docusaurus/theme-live-codeblock'],
   presets: [
     [
-      '@docusaurus/preset-bootstrap',
+      '@docusaurus/preset-classic',
       {
         docs: {
           path: 'documentation/docs',
@@ -77,13 +77,13 @@ module.exports = {
           editUrl:
             'https://github.com/facebook/docusaurus/edit/master/website/',
         },
-        blog: {
-          path: 'documentation/blog',
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
-        },
+        // blog: {
+        //   path: 'documentation/blog',
+        //   showReadingTime: true,
+        //   // Please change this to your repo.
+        //   editUrl:
+        //     'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+        // },
         pages: {
           path: 'documentation/pages',
         },

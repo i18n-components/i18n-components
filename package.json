@@ -13,6 +13,7 @@
     "@commitlint/config-lerna-scopes": "^11.0.0",
     "@docusaurus/core": "2.0.0-alpha.66",
     "@docusaurus/preset-bootstrap": "2.0.0-alpha.66",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.40",
     "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.66",
     "@docusaurus/theme-search-algolia": "^2.0.0-alpha.66",
     "@mdx-js/react": "^1.5.8",
@@ -36,6 +37,7 @@
     "mocha": "^8.2.0",
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
+    "prettier": "^2.1.2",
     "puppeteer": "^5.4.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
@@ -61,7 +63,8 @@
     "postbuild": "yarn build:declarations",
     "build:declarations": "lerna exec --parallel -- tsc -p ./tsconfig.declaration.json",
     "prerelease": "yarn build",
-    "release": "lerna publish",
+    "release": "lerna version --conventional-commit",
+    "publish": "lerna publish from-git",
     "fix": "run-p -c 'lint:ts-* --fix'",
     "lint:ts": "eslint packages/**/*.ts",
     "lint": "run-p -c lint:*",
@@ -95,7 +98,13 @@
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
-    ]
+    ],
+    "rules": {
+      "references-empty": [
+        2,
+        "never"
+      ]
+    }
   },
   "config": {
     "commitizen": {
