@@ -1,9 +1,12 @@
-name: Graduate Release
+name: Release
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Enter release flag'
+        required: false
+        default: ''
 
 jobs:
   build:
@@ -66,7 +69,7 @@ jobs:
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components' 
       - run: yarn
-      - run: yarn release
+      - run: yarn release ${{ github.event.inputs.name }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           GH_TOKEN: ${{ github.token }}
