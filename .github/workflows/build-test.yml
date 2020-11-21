@@ -16,9 +16,10 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
-          scope: '@i18n-components' 
-      - run: yarn
-      - run: yarn build
+          scope: '@i18n-components'
+      - name: Install dependencies and build    
+        run: yarn
+        run: yarn build
 
   test:
     needs: build
@@ -32,8 +33,9 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
-          scope: '@i18n-components' 
-      - run: yarn
+          scope: '@i18n-components'
+      - name: Install dependencies 
+        run: yarn
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.7.4
         env:
