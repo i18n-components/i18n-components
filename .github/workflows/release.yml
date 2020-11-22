@@ -25,7 +25,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components'
-      - run: cat .npmrc 
+      - run: echo ${{secrets.NPM_TOKEN}}
+      - run: cat .npmrc
       - run: npm whoami 
       - run: yarn
       - run: yarn build
