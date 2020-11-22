@@ -26,7 +26,7 @@ jobs:
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components'
       - run: echo ${{secrets.NPM_TOKEN}}
-      #- run: cat .npmrc
+      - run: cat /home/runner/work/_temp/.npmrc
       - run: npm whoami 
       - run: yarn
       - run: yarn build
