@@ -3,10 +3,14 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      name:
+      extra_arguments:
         description: 'Enter release flag'
         required: false
         default: ''
+      registry:
+        description: 'Enter Registry(optional)'
+        default: "https://registry.npmjs.org/"
+        required: false
 
 jobs:
   build:
@@ -70,7 +74,7 @@ jobs:
           scope: '@i18n-components' 
           always-auth: true
       - run: yarn
-      - run: yarn release ${{ github.event.inputs.name }}
+      - run: yarn release --registry=${{github.event.inputs.registry}} ${{github.event.inputs.extra_arguments}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           GH_TOKEN: ${{ github.token }}
