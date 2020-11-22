@@ -68,6 +68,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components' 
+          always-auth: true
       - run: yarn
       - run: yarn release ${{ github.event.inputs.name }}
         env:
