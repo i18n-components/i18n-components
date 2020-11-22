@@ -24,9 +24,13 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
-          scope: '@i18n-components' 
+          scope: '@i18n-components'
+      - run: cat .npmrc 
+      - run: npm whoami 
       - run: yarn
       - run: yarn build
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}} 
 
   test:
     needs: build
@@ -71,8 +75,7 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
-          scope: '@i18n-components' 
-          always-auth: true
+          scope: '@i18n-components'
       - run: yarn
       - run: npm whoami
       - run: yarn release --registry=${{github.event.inputs.registry}} ${{github.event.inputs.extra_arguments}}
