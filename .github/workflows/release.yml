@@ -62,7 +62,7 @@ jobs:
 
         # pulls all tags (needed for lerna / semantic release to correctly version)
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-      - run: git log
+      - run: npm whoami
       - name: Configure CI Git User
         run: |
           git config --global user.name '@apurvaojas'
