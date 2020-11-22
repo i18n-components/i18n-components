@@ -62,7 +62,6 @@ jobs:
 
         # pulls all tags (needed for lerna / semantic release to correctly version)
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-      - run: npm whoami
       - name: Configure CI Git User
         run: |
           git config --global user.name '@apurvaojas'
@@ -75,6 +74,7 @@ jobs:
           scope: '@i18n-components' 
           always-auth: true
       - run: yarn
+      - run: npm whoami
       - run: yarn release --registry=${{github.event.inputs.registry}} ${{github.event.inputs.extra_arguments}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
