@@ -64,7 +64,7 @@
     "build:declarations": "lerna exec --parallel -- tsc -p ./tsconfig.declaration.json",
     "prerelease": "yarn build",
     "alpha:release": "npm run release --conventional-prerelease",
-    "release": "lerna version --conventional-commits --yes",
+    "release": "lerna publish --yes",
     "publish": "lerna publish from-git",
     "fix": "run-p -c 'lint:ts-* --fix'",
     "lint:ts": "eslint packages/**/*.ts",
