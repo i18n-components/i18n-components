@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
         NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}} 
-        CC_ID: ${{secrets.CODE_CLIMATE_REPORTER_ID}}
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -28,14 +27,11 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components'
-      - run: echo $NODE_AUTH_TOKEN
-      - run: echo $CC_ID
-      - run: echo $GITHUB_WORKSPACE
-      - run: cat /home/runner/work/_temp/.npmrc
-      - run: pwd
-      - run: cp /home/runner/work/_temp/.npmrc $PWD
-      - run: cat .npmrc
-      - run: npm whoami 
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}} 
+      - run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - run: yarn
       - run: yarn build
 
@@ -83,9 +79,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components'
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - run: yarn
       - run: npm whoami
       - run: yarn release --registry=${{github.event.inputs.registry}} ${{github.event.inputs.extra_arguments}}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           GH_TOKEN: ${{ github.token }}
