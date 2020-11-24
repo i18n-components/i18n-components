@@ -26,6 +26,7 @@ jobs:
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components'
       - run: echo ${NODE_AUTH_TOKEN}
+      - run: echo ${CC_ID}
       - run: cat /home/runner/work/_temp/.npmrc
       - run: pwd
       - run: cp /home/runner/work/_temp/.npmrc $PWD
@@ -35,6 +36,7 @@ jobs:
       - run: yarn build
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}} 
+          CC_ID: ${{secrets.CODE_CLIMATE_REPORTER_ID}}
 
   test:
     needs: build
