@@ -41,6 +41,7 @@
     "puppeteer": "^5.4.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "remark-codesandbox": "^0.10.0",
     "rimraf": "^3.0.2",
     "run-p": "^0.0.0",
     "ts-jest": "^26.4.3",
