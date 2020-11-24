@@ -15,8 +15,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}} 
+    # env:
+    #     NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}} 
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -85,3 +85,4 @@ jobs:
       - run: yarn release --registry=${{github.event.inputs.registry}} ${{github.event.inputs.extra_arguments}}
         env:
           GH_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
