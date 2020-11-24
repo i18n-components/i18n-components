@@ -27,7 +27,7 @@ jobs:
           scope: '@i18n-components'
       - run: echo ${NODE_AUTH_TOKEN}
       - run: cat /home/runner/work/_temp/.npmrc
-      - run: cat ~/.npmrc
+      - run: cp /home/runner/work/_temp/.npmrc ~/.npmrc
       - run: npm whoami 
       - run: yarn
       - run: yarn build
