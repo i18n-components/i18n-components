@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <script src="https://unpkg.com/@i18n-components/input-number@latest/index.js"></script>
+    <script src="https://unpkg.com/@i18n-components/input-number@latest/dist/index.js"></script>
     
     <input type="tel" is="i18n-input-number" />
   </body>
