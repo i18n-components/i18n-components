@@ -1,19 +1,22 @@
 {
   "name": "@i18n-components/input-number",
   "version": "0.0.1-alpha.1",
-  "description": "> TODO: description",
+  "description": "Web component to format input number based on locale",
   "author": "Apurva Ojas <apurvaojas10@gmail.com>",
-  "homepage": "",
-  "license": "ISC",
+  "homepage": "https://i18n-components.github.io",
+  "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "directories": {
-    "lib": "lib",
+    "lib": "dist",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "dist"
   ],
+  "keywords" : ["format", "format-currency", "currency", "input", "input-number", "i18n", "locale"],
+  "contributors" : [],
+  "repository" : {"type": "git", "url": "git://github.com/i18n-components/i18n-components.git"},
   "publishConfig": {
     "access": "public"
   }
