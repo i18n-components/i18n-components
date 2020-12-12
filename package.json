@@ -26,6 +26,7 @@
     "chai": "^4.2.0",
     "classnames": "^2.2.6",
     "commitizen": "^4.2.2",
+    "docusaurus-plugin-sass": "^0.1.11",
     "eslint": "^7.12.1",
     "file-loader": "^6.2.0",
     "globby": "^11.0.1",
@@ -117,5 +118,8 @@
   "description": "Internationalize Components",
   "main": "index.js",
   "author": "Apurva Ojas <apurvaojas10@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.5.3"
+  }
 }

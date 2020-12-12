@@ -1,0 +1,20 @@
+{
+  "name": "vanilla-input-number",
+  "description": "JavaScript example Input Number",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "@i18n-components/input-number": "latest"
+  },
+  "devDependencies": {
+    "@babel/core": "7.2.0",
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": [
+    "javascript",
+    "starter"
+  ]
+}

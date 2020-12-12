@@ -1,11 +1,25 @@
+// const path = require('path');
+// const versions = require('./versions.json');
 
+// const allDocHomesPaths = [
+//   '/docs/',
+//   '/docs/next/',
+//   ...versions.slice(1).map((version) => `/docs/${version}/`),
+// ];
+
+// const isDev = process.env.NODE_ENV === 'development';
+
+const baseUrl = process.env.BASE_URL || '/';
+// // const isBootstrapPreset = process.env.DOCUSAURUS_PRESET === 'bootstrap';
+
+// const isVersioningDisabled = !!process.env.DISABLE_VERSIONING;
 
 
 module.exports = {
   title: 'I18n Components',
   tagline: 'Internationalize Components',
   url: 'https://i18n-components.github.io',
-  baseUrl: '/',
+  baseUrl,
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
   organizationName: 'i18n-components', // Usually your GitHub org/user name.
@@ -70,6 +84,7 @@ module.exports = {
     },
   },
   themes: ['@docusaurus/theme-live-codeblock'],
+  plugins: ['docusaurus-plugin-sass'],
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -78,17 +93,39 @@ module.exports = {
           path: 'documentation/docs',
           sidebarPath: require.resolve('./documentation/sidebars.js'),
           editUrl:
-            'https://github.com/i18n-components/i18n-components/edit/main/documentation/',
+            'https://github.com/i18n-components/i18n-components/edit/main/',
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
+          remarkPlugins: [
+            [require('remark-codesandbox'), {mode: 'iframe'}],
+          ],
+          // disableVersioning: isVersioningDisabled,
+          // lastVersion: 'current',
+          // onlyIncludeVersions:
+          //   !isVersioningDisabled && (isDev)
+          //     ? ['current', ...versions.slice(0, 2)]
+          //     : undefined,
+          // versions: {
+          //   current: {
+          //     label: `${versions[0]} (unreleased)`,
+          //   },
+          // },
         },
         // blog: {
         //   path: 'documentation/blog',
         //   showReadingTime: true,
         //   // Please change this to your repo.
         //   editUrl:
-        //     'https://github.com/i18n-components/i18n-components/edit/main/documentation/blog/',
+        //     'https://github.com/i18n-components/i18n-components/edit/main/',
         // },
         pages: {
           path: 'documentation/pages',
+          remarkPlugins: [
+            [require('remark-codesandbox'), {mode: 'iframe'}],
+          ]
+        },
+        theme: {
+          customCss: [require.resolve('./documentation/styles/main.scss')],
         },
       },
     ],

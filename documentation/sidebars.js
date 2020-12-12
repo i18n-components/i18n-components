@@ -1,16 +1,16 @@
 module.exports = {
   docs: [
-    'introduction', 'design-principles', 'contributing',
+    'introduction', 'contributing',
     {
       type: 'category',
       label: 'Getting Started',
       collapsed: false,
       items: [
-        'doc2', 
-        'doc3',
-        {
-          ["Input Number"]: ['doc2', 'doc3']
-        }
+        'input-number' 
+        // 'doc3',
+        // {
+        //   ["Input Number"]: ['doc2', 'doc3']
+        // }
       ],
     }
   ],
