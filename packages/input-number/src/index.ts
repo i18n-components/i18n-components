@@ -22,7 +22,7 @@ export class InputNumber extends HTMLInputElement {
   intl: Intl.NumberFormat;
   numRegx: RegExp;
   inputValue: string;
-  
+
   /**
    * Constrctor
    */
@@ -31,19 +31,19 @@ export class InputNumber extends HTMLInputElement {
     this.intl = this.initializeIntl();
     this.numRegx = this.getNumRegx();
     this.inputValue = this.value || this.intl.format(0);
-    this.value = this.formattedValue;
+    this.value = this.getFormattedValue();
   }
   /**
    * get number regex with thosand and decimal separator based on locale
    * @param  {boolean} invertMatch=false
    * @returns RegExp
    */
-  getNumRegx(invertMatch = false): RegExp {
+  getNumRegx(invertMatch = false, locale: string = this.locale): RegExp {
     const decimalSeparator = this.fractionDigits
-      ? "|\\" + this.decimalSeparator
+      ? "|\\" + this.getDecimalSeparator(locale)
       : "";
-    const thousandSeparator = this.thousandSeparator
-      ? "|\\" + this.thousandSeparator
+    const thousandSeparator = this.getThousandSeparator(locale)
+      ? "|\\" + this.getThousandSeparator(locale)
       : "";
 
     let regxString = "\\d" + decimalSeparator + thousandSeparator;
@@ -57,14 +57,24 @@ export class InputNumber extends HTMLInputElement {
    * @returns string
    */
   get locale(): string {
-    return this.getAttribute("locale") || navigator.language || "en-US";
+    if (!this.getAttribute("locale")) {
+      // set locale because attribute change callback should have oldValue
+      this.setAttribute("locale", navigator.language);
+    }
+    return <string>this.getAttribute("locale");
   }
   /**
    * formatted input value
    * @returns string
    */
+  getFormattedValue(locale: string = this.locale): string {
+    return this.intl.format(this.getNumericValue(locale));
+  }
+  /**
+   * @returns string
+   */
   get formattedValue(): string {
-    return this.intl.format(this.numericValue);
+    return this.getFormattedValue();
   }
   /**
    * Number of fraction digits allowed
@@ -78,40 +88,47 @@ export class InputNumber extends HTMLInputElement {
    * decimal separator for current locale
    * @returns string
    */
-  get decimalSeparator(): string {
-    return (1.1).toLocaleString(this.locale).substring(1, 2);
+  getDecimalSeparator(locale: string = this.locale): string {
+    return (1.1).toLocaleString(locale).substring(1, 2);
   }
   /**
    * thousand separator for current locale
    * @returns string
    */
-  get thousandSeparator(): string {
-    const separator = (1000).toLocaleString(this.locale).substring(1, 2);
+  getThousandSeparator(locale: string = this.locale): string {
+    const separator = (1000).toLocaleString(locale).substring(1, 2);
     // In case there are locales that don't use a thousand separator
     if (separator.match(/\d/)) return "";
     return separator;
   }
   /**
-   * detect if current input key is valid or not
+   * detect if current input key is valid or not based on locale
+   * @param  {string=this.locale} locale
    * @returns boolean
    */
-  get isValidInput(): boolean {
-    const regx = this.getNumRegx(true);
-    return !regx.exec(this.value);
+  isValidInput({value = this.value, locale = this.locale} = {}): boolean {
+    const regx = this.getNumRegx(true, locale);
+    return !regx.exec(value);
   }
-  
+
   /**
    * current numeric value
    * @returns number
    */
-  get numericValue(): number {
+  getNumericValue(locale: string = this.locale): number {
     if (!this.inputValue) {
       return 0;
     }
     const str = this.inputValue
-      .replace(new RegExp(`\\${this.thousandSeparator}`, "gi"), "")
-      .replace(new RegExp(`\\${this.decimalSeparator}`, "gi"), ".");
+      .replace(new RegExp(`\\${this.getThousandSeparator(locale)}`, "gi"), "")
+      .replace(new RegExp(`\\${this.getDecimalSeparator(locale)}`, "gi"), ".");
     return Number(parseFloat(str).toFixed(this.fractionDigits));
+  }
+  /**
+   * @returns number
+   */
+  get numericValue(): number {
+    return this.getNumericValue();
   }
   /**
    * initialize the Intl.NumberFormat
@@ -137,17 +154,30 @@ export class InputNumber extends HTMLInputElement {
    * @param  {string} newValue
    * @returns void
    */
-  attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-    if( name === 'locale' || name === 'decimalDigits') {
+  attributeChangedCallback(
+    name: string,
+    oldValue: string,
+    newValue: string
+  ): void {
+    // Re-initialize Intl only when locale and fraction digit changes
+    if (name === "locale" || name === "decimalDigits") {
       this.intl = this.initializeIntl();
     }
-    if(this.isValidInput) {
-      this.inputValue = this.value =  this.formattedValue;
+    if (name === "locale") {
+      if (this.isValidInput({locale: oldValue})) {
+        this.inputValue = this.value = this.getFormattedValue(oldValue);
+      }
     } else {
-      console.info("@i18n-components/input-number:", "Invalid Value.", newValue);
-      this.inputValue = this.value = oldValue ? oldValue : this.intl.format(0);
+      const value = name === 'value' ? newValue : undefined;
+      if (this.isValidInput({value})) {
+        this.inputValue = this.value = this.getFormattedValue();
+      } else {
+        console.info("@i18n-components/input-number:", "Invalid Value.", newValue);
+        this.inputValue = this.value = oldValue
+          ? oldValue
+          : this.intl.format(0);
+      }
     }
-    // console.log(name, oldValue, newValue);
   }
   /**
    * set the curser at specific position
@@ -171,28 +201,28 @@ export class InputNumber extends HTMLInputElement {
    * @returns void
    */
   onFocus(): void {
-    if (!this.isValidInput) {
+    if (!this.isValidInput()) {
       this.inputValue = this.value = this.intl.format(0);
     }
   }
-  
+
   /**
    * onchange and onInput event listener callback
    * @returns void
    */
   onChange(): void {
-    if (this.isValidInput) {
+    if (this.isValidInput()) {
       this.inputValue = this.value;
     }
     const currentCaretPosition = helpers.getCurrentCaretPosition(this);
-    const formattedValue = this.formattedValue;
+    const formattedValue = this.getFormattedValue();
     const caretPos = helpers.getCaretPosition(
       this.inputValue,
-      this.formattedValue,
+      this.getFormattedValue(),
       currentCaretPosition
     );
     this.inputValue = this.value = formattedValue;
-    this.isValidInput && this.updateCaretPosition(caretPos);
+    this.isValidInput() && this.updateCaretPosition(caretPos);
   }
   /**
    * onKeydown event listner callback
@@ -215,17 +245,17 @@ export class InputNumber extends HTMLInputElement {
     }
   }
   /**
-   * 
+   *
    * @param  {boolean} isBackspace=false
    * @returns void
    */
   correctCaretPosition(isBackspace = false): void {
     const currentCaretPosition = helpers.getCurrentCaretPosition(this);
     const decimalSeparator = this.fractionDigits
-      ? "\\" + this.decimalSeparator
+      ? "\\" + this.getDecimalSeparator()
       : "";
-    const thousandSeparator = this.thousandSeparator
-      ? "|\\" + this.thousandSeparator
+    const thousandSeparator = this.getThousandSeparator()
+      ? "|\\" + this.getThousandSeparator()
       : "";
     const separatorDecimalRegex = new RegExp(
       "^" + decimalSeparator + thousandSeparator + "$",
