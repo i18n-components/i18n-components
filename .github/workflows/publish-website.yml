@@ -22,6 +22,7 @@ jobs:
           fi
           npm run doc:build
   gh-release:
+    needs: checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -46,6 +47,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_EMAIL: ${{github.email}}
           GH_NAME: ${{ github.actor }}
+          GIT_USER: ${{ github.actor }}
         run: |
           git config --global user.name "${GH_NAME}"
           git config --global user.email "${GH_EMAIL}"
