@@ -1,6 +1,6 @@
 {
   "name": "@i18n-components/input-number",
-  "version": "0.0.2-alpha.0",
+  "version": "0.1.0-alpha.0",
   "description": "Web component to format input number based on locale",
   "author": "Apurva Ojas <apurvaojas10@gmail.com>",
   "homepage": "https://i18n-components.github.io",
