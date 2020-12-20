@@ -102,19 +102,61 @@ describe("@i18n-components/input-number", () => {
       expect(SUT.value).toBe("1,234.00");
       expect(getCurrentCaretPosition(SUT)).toBe(5);
     });
+
+    it("should format the input with leading zeros and update the caret position", () => {
+      const event = new Event("change", <KeyboardEventInit>{ key: "4" });
+      SUT.setAttribute('decimaldigits', "0");
+      SUT.value = "0023";
+      SUT.updateCaretPosition(4);
+      SUT.dispatchEvent(event);
+      
+      expect(SUT.value).toBe("23");
+      expect(getCurrentCaretPosition(SUT)).toBe(2);
+    });
+
+    it("should format the input for invalid input", () => {
+      const event = new Event("change", <KeyboardEventInit>{ key: "4" });
+      SUT.value = "1a33";
+      SUT.updateCaretPosition(4);
+      SUT.dispatchEvent(event);
+      
+      expect(SUT.value).toBe("23");
+      expect(getCurrentCaretPosition(SUT)).toBe(2);
+    });
   });
 
-  describe("check values", () => {
+  describe("Attribute change behaviour", () => {
     let SUT;
     beforeAll(async (done) => {
       SUT = await TestUtils.render("input", { is: InputNumber.tag });
-      SUT.setAttribute('value', "1234");
       done();
     });
-    it.skip("should format the input", () => {
-      expect(SUT.value).toBe("1,234.00");
+    it("should set the value and format the input", () => {
+      SUT.setAttribute('value', 1234.55);
+      expect(SUT.value).toBe("1,234.55");
+      expect(SUT.numericValue).toBe(1234.55);
+      expect(SUT.formattedValue).toBe("1,234.55");
+    });
+
+    it("should change the format on locale change", () => {
+      SUT.setAttribute('locale', "de-DE");
+      expect(SUT.value).toBe("1.234,55");
+      expect(SUT.numericValue).toBe(1234.55);
+      expect(SUT.formattedValue).toBe("1.234,55");
+    });
+
+    it("should update the fraction digits on decimaldigits change", () => {
+      SUT.setAttribute('decimaldigits', "5");
+      expect(SUT.value).toBe("1.234,55000");
+      expect(SUT.numericValue).toBe(1234.55000);
+      expect(SUT.formattedValue).toBe("1.234,55000");
+    });
+
+    it("should remove the fraction digits on decimaldigits change to 0", () => {
+      SUT.setAttribute('decimaldigits', "0");
+      expect(SUT.value).toBe("1.234");
       expect(SUT.numericValue).toBe(1234);
-      expect(SUT.formattedValue).toBe("1,234.00");
+      expect(SUT.formattedValue).toBe("1.234");
     });
   });
 });

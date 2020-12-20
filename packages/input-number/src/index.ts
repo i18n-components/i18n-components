@@ -39,9 +39,7 @@ export class InputNumber extends HTMLInputElement {
    * @returns RegExp
    */
   getNumRegx(invertMatch = false, locale: string = this.locale): RegExp {
-    const decimalSeparator = this.fractionDigits
-      ? "|\\" + this.getDecimalSeparator(locale)
-      : "";
+    const decimalSeparator = "|\\" + this.getDecimalSeparator(locale);
     const thousandSeparator = this.getThousandSeparator(locale)
       ? "|\\" + this.getThousandSeparator(locale)
       : "";
@@ -84,8 +82,8 @@ export class InputNumber extends HTMLInputElement {
    * @returns number
    */
   get fractionDigits(): number {
-    const digits = Number(this.getAttribute("decimaldigits"));
-    return digits && digits > -1 ? digits : 2;
+    const digits = Number(parseInt(<string>this.getAttribute("decimaldigits")));
+    return !isNaN(digits) && digits > -1 ? digits : 2;
   }
   /**
    * decimal separator for current locale
@@ -125,16 +123,18 @@ export class InputNumber extends HTMLInputElement {
     if (!value) {
       return 0;
     }
-    if (isNaN(Number(value))) {
-      const str = value
+    let str = value;
+    if (isNaN(Number(value)) || (value === this.inputValue && !isNaN(Number(value)) && this.getThousandSeparator(locale) === '.')) {
+      str = str
         .replace(new RegExp(`\\${this.getThousandSeparator(locale)}`, "gi"), "")
         .replace(
           new RegExp(`\\${this.getDecimalSeparator(locale)}`, "gi"),
           "."
         );
-      return Number(parseFloat(str).toFixed(this.fractionDigits));
     }
-    return Number(parseFloat(value).toFixed(this.fractionDigits));
+    return Number(
+      helpers.toFixedWithoutRound(parseFloat(str), this.fractionDigits)
+    );
   }
   /**
    * @returns number
@@ -188,12 +188,12 @@ export class InputNumber extends HTMLInputElement {
       } else {
         console.info(
           "@i18n-components/input-number:",
-          "Invalid Value.",
+          "Invalid attribute " + name + " Value: ",
           newValue
         );
-        this.inputValue = this.value = oldValue
-          ? oldValue
-          : this.intl.format(0);
+        if (name === "value") {
+          this.inputValue = this.value = oldValue;
+        }
       }
     }
   }
