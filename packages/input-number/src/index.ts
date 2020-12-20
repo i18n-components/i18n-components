@@ -67,8 +67,11 @@ export class InputNumber extends HTMLInputElement {
    * formatted input value
    * @returns string
    */
-  getFormattedValue(locale: string = this.locale): string {
-    return this.intl.format(this.getNumericValue(locale));
+  getFormattedValue({
+    locale = this.locale,
+    value = this.inputValue,
+  } = {}): string {
+    return this.intl.format(this.getNumericValue({ locale, value }));
   }
   /**
    * @returns string
@@ -106,23 +109,32 @@ export class InputNumber extends HTMLInputElement {
    * @param  {string=this.locale} locale
    * @returns boolean
    */
-  isValidInput({value = this.value, locale = this.locale} = {}): boolean {
+  isValidInput({ value = this.value, locale = this.locale } = {}): boolean {
     const regx = this.getNumRegx(true, locale);
-    return !regx.exec(value);
+    return !regx.exec(value) || !isNaN(Number(value));
   }
 
   /**
    * current numeric value
    * @returns number
    */
-  getNumericValue(locale: string = this.locale): number {
-    if (!this.inputValue) {
+  getNumericValue({
+    locale = this.locale,
+    value = this.inputValue,
+  } = {}): number {
+    if (!value) {
       return 0;
     }
-    const str = this.inputValue
-      .replace(new RegExp(`\\${this.getThousandSeparator(locale)}`, "gi"), "")
-      .replace(new RegExp(`\\${this.getDecimalSeparator(locale)}`, "gi"), ".");
-    return Number(parseFloat(str).toFixed(this.fractionDigits));
+    if (isNaN(Number(value))) {
+      const str = value
+        .replace(new RegExp(`\\${this.getThousandSeparator(locale)}`, "gi"), "")
+        .replace(
+          new RegExp(`\\${this.getDecimalSeparator(locale)}`, "gi"),
+          "."
+        );
+      return Number(parseFloat(str).toFixed(this.fractionDigits));
+    }
+    return Number(parseFloat(value).toFixed(this.fractionDigits));
   }
   /**
    * @returns number
@@ -164,15 +176,21 @@ export class InputNumber extends HTMLInputElement {
       this.intl = this.initializeIntl();
     }
     if (name === "locale") {
-      if (this.isValidInput({locale: oldValue})) {
-        this.inputValue = this.value = this.getFormattedValue(oldValue);
+      if (this.isValidInput({ locale: oldValue })) {
+        this.inputValue = this.value = this.getFormattedValue({
+          locale: oldValue,
+        });
       }
     } else {
-      const value = name === 'value' ? newValue : undefined;
-      if (this.isValidInput({value})) {
-        this.inputValue = this.value = this.getFormattedValue();
+      const value = name === "value" ? newValue : undefined;
+      if (this.isValidInput({ value })) {
+        this.inputValue = this.value = this.getFormattedValue({ value });
       } else {
-        console.info("@i18n-components/input-number:", "Invalid Value.", newValue);
+        console.info(
+          "@i18n-components/input-number:",
+          "Invalid Value.",
+          newValue
+        );
         this.inputValue = this.value = oldValue
           ? oldValue
           : this.intl.format(0);
