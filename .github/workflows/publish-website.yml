@@ -1,0 +1,60 @@
+name: Publish documentation
+
+on:
+  workflow_dispatch
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Test Build
+        run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+          npm run doc:build
+  gh-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      # - name: Add key to allow access to repository
+      #   env:
+      #     SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     ssh-keyscan github.com >> ~/.ssh/known_hosts
+      #     echo "${{ secrets.GH_PAGES_DEPLOY }}" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
+      #     cat <<EOT >> ~/.ssh/config
+      #     Host github.com
+      #     HostName github.com
+      #     IdentityFile ~/.ssh/id_rsa
+      #     EOT
+      - name: Release to GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_EMAIL: ${{github.email}}
+          GH_NAME: ${{ github.actor }}
+        run: |
+          git config --global user.name "${GH_NAME}"
+          git config --global user.email "${GH_EMAIL}"
+          echo "machine github.com login ${GH_NAME} password ${GH_TOKEN}" > ~/.netrc
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+          npm run doc:deploy
