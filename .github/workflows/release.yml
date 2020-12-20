@@ -21,9 +21,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: setup node environment
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '14.x'
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components'
@@ -42,9 +42,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: setup node environment
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '14.x'
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components' 
@@ -73,9 +73,9 @@ jobs:
         run: |
           git config --global user.name '@apurvaojas'
           git config --global user.email 'apurvaojas@users.noreply.github.com'
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '14.x'
           registry-url: 'https://registry.npmjs.org/'
           # Defaults to the user or organization that owns the workflow file
           scope: '@i18n-components'
