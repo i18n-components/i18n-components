@@ -12,11 +12,11 @@ export class InputNumber extends HTMLInputElement {
     return "i18n-input-number";
   }
   /**
-   * observe locale and decimalDigits attributes to re-render
+   * observe locale and decimaldigits attributes to re-render
    * @returns Array
    */
   static get observedAttributes(): Array<string> {
-    return ["locale", "decimalDigits", "value"];
+    return ["locale", "decimaldigits", "value"];
   }
 
   intl: Intl.NumberFormat;
@@ -81,7 +81,7 @@ export class InputNumber extends HTMLInputElement {
    * @returns number
    */
   get fractionDigits(): number {
-    const digits = Number(this.getAttribute("decimalDigits"));
+    const digits = Number(this.getAttribute("decimaldigits"));
     return digits && digits > -1 ? digits : 2;
   }
   /**
@@ -160,7 +160,7 @@ export class InputNumber extends HTMLInputElement {
     newValue: string
   ): void {
     // Re-initialize Intl only when locale and fraction digit changes
-    if (name === "locale" || name === "decimalDigits") {
+    if (name === "locale" || name === "decimaldigits") {
       this.intl = this.initializeIntl();
     }
     if (name === "locale") {

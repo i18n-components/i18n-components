@@ -20,7 +20,7 @@ describe("@i18n-components/input-number", () => {
     });
     it("Should observe attributes", () => {
       expect(InputNumber.observedAttributes.join()).toBe(
-        ["locale", "decimalDigits", "value"].join()
+        ["locale", "decimaldigits", "value"].join()
       );
     });
   });
