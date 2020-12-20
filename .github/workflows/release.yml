@@ -6,7 +6,7 @@ on:
       extra_arguments:
         description: 'Enter release flag'
         required: false
-        default: ''
+        default: '--conventional-commits --conventional-prerelease'
       registry:
         description: 'Enter Registry(optional)'
         default: "https://registry.npmjs.org/"
