@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://i18n-components.github.io/blog</id>
+    <title>I18n Components Blog</title>
+    <updated>2015-10-25T23:29:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://i18n-components.github.io/blog"/>
+    <subtitle>I18n Components Blog</subtitle>
+    <icon>https://i18n-components.github.io/img/favicon.ico</icon>
+</feed>
