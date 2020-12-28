@@ -11,9 +11,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
-      - run: cd website
       - name: Test Build
         run: |
+          cd website
           if [ -e yarn.lock ]; then
           yarn install --frozen-lockfile
           elif [ -e package-lock.json ]; then
@@ -49,6 +49,7 @@ jobs:
           GH_EMAIL: ${{github.email}}
           GH_NAME: ${{ github.actor }}
           GIT_USER: ${{ github.actor }}
+          BASE_URL: /i18n-components/
         run: |
           git config --global user.name "${GH_NAME}"
           git config --global user.email "${GH_EMAIL}"

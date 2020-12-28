@@ -1,8 +1,10 @@
+const baseUrl = process.env.BASE_URL || '/';
+
 module.exports = {
   title: "I18n Components",
   tagline: "Internationalize Components",
-  url: "https://i18n-components.github.io",
-  baseUrl: "/",
+  url: "https://i18n-components.github.io/i18n-components/",
+  baseUrl,
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
