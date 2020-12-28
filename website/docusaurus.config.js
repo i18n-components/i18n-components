@@ -1,6 +1,5 @@
 const baseUrl = process.env.BASE_URL || '/';
-
-console.log("***************************** \n \n", baseUrl, "\n\n ***************************");
+const trackingID = process.env.GA_TRACKING_ID || '';
 
 module.exports = {
   title: "I18n Components",
@@ -13,6 +12,11 @@ module.exports = {
   organizationName: "i18n-components", // Usually your GitHub org/user name.
   projectName: "i18n-components", // Usually your repo name.
   themeConfig: {
+    googleAnalytics: {
+      trackingID,
+      // Optional fields.
+      anonymizeIP: true, // Should IPs be anonymized?
+    },
     navbar: {
       title: "I18n Components",
       logo: {

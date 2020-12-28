@@ -14,6 +14,7 @@ jobs:
       - name: Test Build
         env:
           BASE_URL: /i18n-components/
+          GA_TRACKING_ID: ${{ secrets.GA_MEASUREMENT_ID }}
         run: |
           cd website
           if [ -e yarn.lock ]; then
@@ -52,6 +53,7 @@ jobs:
           GH_NAME: ${{ github.actor }}
           GIT_USER: ${{ github.actor }}
           BASE_URL: /i18n-components/
+          GA_TRACKING_ID: ${{ secrets.GA_MEASUREMENT_ID }}
         run: |
           git config --global user.name "${GH_NAME}"
           git config --global user.email "${GH_EMAIL}"
