@@ -1,5 +1,7 @@
 const baseUrl = process.env.BASE_URL || '/';
 
+console.log("***************************** \n \n", baseUrl, "\n\n ***************************");
+
 module.exports = {
   title: "I18n Components",
   tagline: "Internationalize Components",
