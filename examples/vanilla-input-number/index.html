@@ -7,6 +7,25 @@
 
   <body>
     <script src="src/index.js"></script>
-    <input is="i18n-input-number" />
+    <input is="i18n-input-number" id="input-number" decimalDigits="3" />
+    <select name="locals" id="locals">
+      <option value="" selected></option>
+      <option value="fr-FR">fr-FR</option>
+      <option value="de-DE">de-DE</option>
+      <option value="eu-ES">eu-ES</option>
+      <option value="gd-GB">gd-GB</option>
+    </select>
+
+    <script>
+      const defaultEl = document.getElementById("locals").childNodes[1];
+      console.log(defaultEl);
+      defaultEl.setAttribute("value", navigator.language);
+      defaultEl.innerHTML = navigator.language;
+
+      document.getElementById("locals").addEventListener("change", (event) => {
+        console.log(event);
+        document.getElementById("input-number").setAttribute('locale', event.target.value);
+      });
+    </script>
   </body>
 </html>

@@ -1,3 +1,5 @@
+import "@babel/polyfill";
+
 export class TestUtils {
   /**
    * @param  {HTMLInputElement} el
