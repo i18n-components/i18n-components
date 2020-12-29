@@ -76,7 +76,7 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} I18n Components.`,
     },
   },
-  plugins: ["docusaurus-plugin-sass"],
+  plugins: ["docusaurus-plugin-sass", require.resolve('./plugin/src/index.js')],
   presets: [
     [
       "@docusaurus/preset-classic",
