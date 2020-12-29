@@ -9,7 +9,6 @@ module.exports = function (context, options) {
           rules: [
             {
               use: [
-                getCacheLoader(isServer),
                 {
                   loader: "@svgr/webpack",
                   options: {
@@ -27,7 +26,6 @@ module.exports = function (context, options) {
             {
                 test: /\.svg$/,
                 use: [
-                  getCacheLoader(isServer),
                   {
                     loader: "url-loader",
                     options: {

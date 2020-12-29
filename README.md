@@ -4,6 +4,8 @@
 
 Group of components Library, which by default format the number based on users locale.
 
+![Input Number Demo](./website/static/img/input-number.gif)
+
 ## Getting Started
 
 ### Installation
