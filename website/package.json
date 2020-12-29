@@ -34,7 +34,7 @@
     ]
   },
   "devDependencies": {
-    "bootstrap": "4",
+    "bootstrap": "^4.5.3",
     "docusaurus-plugin-sass": "^0.1.11"
   }
 }
