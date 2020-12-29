@@ -1,5 +1,5 @@
 const baseUrl = process.env.BASE_URL || '/';
-const trackingID = process.env.GA_TRACKING_ID || '';
+const trackingID = process.env.GA_TRACKING_ID || 'dummy';
 
 module.exports = {
   title: "I18n Components",
